@@ -1,6 +1,6 @@
 ﻿namespace ThuethietbiWeb.Models
 {
-    public class Class
+    public class tesstt
     {
     }
 }
