@@ -16,5 +16,6 @@ namespace ThuethietbiWeb.Models
         public int MaDanhMuc { get; set; }
         [ForeignKey("MaDanhMuc")]
         public DanhMuc DanhMuc { get; set; }
+        public string HinhAnh { get; set; }
     }
 }
