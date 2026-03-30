@@ -1,25 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using ThuethietbiWeb.Models;
+using Microsoft.EntityFrameworkCore;
+using ThuethietbiWeb.Models; // Đảm bảo gọi đúng thư mục Models
 
 namespace ThuethietbiWeb.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly AppDbContext _context;
+
+        // Kết nối với Database thông qua AppDbContext
+        public HomeController(AppDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            // Lấy toàn bộ danh sách Thiết bị từ CSDL
+            var dsThietBi = await _context.ThietBis.ToListAsync();
+
+            // Gửi dữ liệu sang View (Giao diện)
+            return View(dsThietBi);
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
