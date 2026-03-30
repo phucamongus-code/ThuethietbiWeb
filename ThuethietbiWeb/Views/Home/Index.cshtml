@@ -1,8 +1,48 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<ThuethietbiWeb.Models.ThietBi>
+
+@{
+    ViewData["Title"] = "Trang chủ - Cho Thuê Thiết Bị";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-5 fw-bold">📸 DANH SÁCH THIẾT BỊ CHO THUÊ 🎤</h2>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="https://via.placeholder.com/300x200?text=@item.TenThietBi" class="card-img-top rounded" alt="@item.TenThietBi">
+                        
+                        <div class="card-body">
+                            <h5 class="card-title text-dark fw-bold">@item.TenThietBi</h5>
+                            <h6 class="card-subtitle mb-2 text-danger fw-bold">@item.GiaThueNgay.ToString("N0") VNĐ / ngày</h6>
+                            
+                            <p class="card-text mb-1 mt-3">
+                                <span class="badge @(item.TrangThai == "Sẵn sàng" ? "bg-success" : "bg-secondary")">
+                                    @item.TrangThai
+                                </span>
+                            </p>
+                            <small class="text-muted">Kho còn: <b>@item.SoLuongTon</b> cái</small>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 text-center pb-3">
+                            <a href="#" class="btn btn-outline-primary w-100 fw-bold">
+                                🛒 Thêm vào giỏ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center mt-5">
+                <img src="https://cdn-icons-png.flaticon.com/512/4076/4076432.png" width="100" class="mb-3 opacity-50" />
+                <h4 class="text-muted">Hiện tại kho chưa có thiết bị nào!</h4>
+            </div>
+        }
+    </div>
 </div>
